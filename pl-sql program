@@ -1,0 +1,21 @@
+create table employee(id number, age number);
+CREATE OR REPLACE TRIGGER Check_age BEFORE INSERT ON employee 
+
+FOR EACH ROW
+
+BEGIN
+
+IF :NEW.age < 25 THEN
+
+raise_application_error(-20001, 'Age must be greater than 25');
+
+END IF;
+
+END; 
+
+/
+
+insert into employee values(101, 45);
+insert into employee values(102, 22);
+insert into employee values(103, 42);
+select * from employee;
